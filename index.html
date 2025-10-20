@@ -4,14 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Nic Calculator AM</title>
+
+  <!-- PWA -->
   <link rel="manifest" href="/nic-calculator-am/manifest.webmanifest">
   <meta name="theme-color" content="#364F6B">
-  <link rel="apple-touch-icon" href="/nic-calculator-am/icons/icon-192.png">
-  <link rel="stylesheet" href="/nic-calculator-am/styles.css">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="apple-touch-icon" href="/nic-calculator-am/icons/icon-192.png">
+
+  <!-- Stili -->
+  <link rel="stylesheet" href="/nic-calculator-am/styles.css">
 </head>
 <body>
+  <!-- Header -->
   <div class="header">
     <img src="/nic-calculator-am/icons/icon-192.png" alt="AM" width="28" height="28">
     <h1>Nic Calculator AM</h1>
@@ -20,48 +25,124 @@
   <div class="container">
     <div class="small">Shot PG • Basette 10 ml • Combinazioni ufficiali Andrea</div>
 
+    <!-- Formato + share/install -->
     <div class="card">
       <div class="label">Formato</div>
-      <div class="tabs">
+      <div class="tabs" id="formatTabs">
         <button class="tab" data-tab="10-30">10 → 30</button>
         <button class="tab active" data-tab="20-60">20 → 60</button>
         <button class="tab" data-tab="30-90">30 → 90</button>
       </div>
+
       <div class="buttons" style="margin-top:8px">
         <button class="button" id="shareBtn">Condividi link</button>
         <button class="button" id="installHint">Come installare</button>
       </div>
       <div id="hint" class="small" style="display:none;margin-top:8px">
-        Su iPhone: tocca l'icona <b>Condividi</b> → <b>Aggiungi a Schermata Home</b>.
+        iPhone: icona <b>Condividi</b> → <b>Aggiungi a Schermata Home</b>. Funziona anche offline.
       </div>
+    </div>
+
+    <!-- Input principali -->
+    <div class="card">
+      <div class="row">
+        <div>
+          <div class="label">Nicotina desiderata (mg/ml)</div>
+          <select id="nicSelect"></select>
+        </div>
+        <div>
+          <div class="label">Tipo basette</div>
+          <select id="typeSelect">
+            <option>50/50</option>
+            <option>Full VG</option>
+            <option>Full PG</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-top:8px">
+        <label class="center" style="gap:6px">
+          <input type="checkbox" id="advToggle">
+          <span class="small">Modalità avanzata (tipo per singola basetta)</span>
+        </label>
+        <div id="advArea" style="display:none;margin-top:8px" class="row"></div>
+      </div>
+    </div>
+
+    <!-- Combinazione ufficiale -->
+    <div class="card">
+      <div class="label">Combinazione ufficiale</div>
+      <div id="combo" class="badge">—</div>
+      <div class="small" id="bcount" style="margin-top:6px">—</div>
+    </div>
+
+    <!-- Riepilogo numeri -->
+    <div class="card">
+      <div class="row">
+        <div class="info"><div class="small">Shot (PG)</div><div id="shotMl" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">Totale finale</div><div id="totalMl" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">Nic totale richiesta</div><div id="nicReq" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">Nic effettiva</div><div id="nicEff" style="font-weight:600">—</div></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="row">
+        <div class="info"><div class="small">VG da basette</div><div id="vgB" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">PG da basette</div><div id="pgB" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">PG dallo shot</div><div id="pgS" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">Target VG</div><div id="targetVG" style="font-weight:600">—</div></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="row">
+        <div class="info"><div class="small">VG da aggiungere</div><div id="vgAdd" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">PG da aggiungere</div><div id="pgAdd" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">VG finale</div><div id="vgF" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">PG finale</div><div id="pgF" style="font-weight:600">—</div></div>
+      </div>
+
+      <div class="small" id="ratio" style="margin-top:8px">—</div>
     </div>
 
     <footer>© Nic Calculator AM • Funziona offline • Aggiungi alla schermata Home</footer>
   </div>
 
+  <!-- App logic (usa il tuo app.js esistente) -->
+  <script src="/nic-calculator-am/app.js"></script>
+
+  <!-- PWA: Service Worker con path assoluto -->
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('/nic-calculator-am/service-worker.js'));
+      window.addEventListener('load', () =>
+        navigator.serviceWorker.register('/nic-calculator-am/service-worker.js')
+      );
     }
+
+    // UI: share + hint
     document.addEventListener('DOMContentLoaded', () => {
       const shareBtn = document.getElementById('shareBtn');
       const installHint = document.getElementById('installHint');
       const hint = document.getElementById('hint');
-      shareBtn.addEventListener('click', async () => {
-        const url = window.location.href;
-        try {
-          if (navigator.share) {
-            await navigator.share({ title: 'Nic Calculator AM', url });
-          } else {
-            await navigator.clipboard.writeText(url);
-            shareBtn.textContent = 'Link copiato!';
-            setTimeout(()=> shareBtn.textContent='Condividi link', 1500);
-          }
-        } catch(e) {}
-      });
-      installHint.addEventListener('click', () => {
-        hint.style.display = 'block';
-      });
+
+      if (shareBtn) {
+        shareBtn.addEventListener('click', async () => {
+          const url = window.location.href;
+          try {
+            if (navigator.share) {
+              await navigator.share({ title: 'Nic Calculator AM', url });
+            } else {
+              await navigator.clipboard.writeText(url);
+              shareBtn.textContent = 'Link copiato!';
+              setTimeout(() => (shareBtn.textContent = 'Condividi link'), 1400);
+            }
+          } catch (e) {}
+        });
+      }
+      if (installHint) {
+        installHint.addEventListener('click', () => (hint.style.display = 'block'));
+      }
     });
   </script>
 </body>
