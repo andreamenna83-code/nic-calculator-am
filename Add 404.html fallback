@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nic Calculator AM</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+</head>
+<body>
+  <h1>Nic Calculator AM</h1>
+  <p>Shot PG • Basette 10 ml • Combinazioni ufficiali Andrea Formato</p>
+
+  <div>
+    <label>Nicotina desiderata</label>
+    <select>
+      <option>10 ➜ 30</option>
+      <option>20 ➜ 60</option>
+      <option>30 ➜ 90</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Tipo basette</label>
+    <select>
+      <option>50/50</option>
+      <option>70/30</option>
+      <option>100VG</option>
+    </select>
+  </div>
+
+  <div>
+    <label><input type="checkbox" /> Modalità avanzata (tipo per singola basetta)</label>
+  </div>
+
+  <p>Combinazione ufficiale —</p>
+  <p>Shot (PG): —</p>
+  <p>Totale finale: —</p>
+  <p>Nic totale richiesta: —</p>
+  <p>Nic effettiva: —</p>
+  <p>VG da basette: —</p>
+  <p>PG da basette: —</p>
+  <p>PG dallo shot: —</p>
+  <p>Target VG: —</p>
+  <p>VG da aggiungere: —</p>
+  <p>PG da aggiungere: —</p>
+
+  <script src="app.js"></script>
+</body>
+</html>
