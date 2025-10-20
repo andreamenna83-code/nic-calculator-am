@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nic Calculator AM</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#364F6B">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="center">
+        <img src="icons/icon-192.png" alt="AM" width="28" height="28" style="border-radius:6px">
+        <h1>Nic Calculator AM</h1>
+      </div>
+      <div class="small">Shot PG • Basette 10 ml • Combinazioni ufficiali Andrea</div>
+    </header>
+
+    <div class="card">
+      <div class="label">Formato</div>
+      <div class="tabs">
+        <button class="tab" data-tab="10-30">10 → 30</button>
+        <button class="tab active" data-tab="20-60">20 → 60</button>
+        <button class="tab" data-tab="30-90">30 → 90</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div>
+          <div class="label">Nicotina desiderata</div>
+          <select id="nicSelect"></select>
+        </div>
+        <div>
+          <div class="label">Tipo basette</div>
+          <select id="typeSelect">
+            <option>50/50</option>
+            <option>Full VG</option>
+            <option>Full PG</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:8px">
+        <label class="center" style="gap:6px">
+          <input type="checkbox" id="advToggle">
+          <span class="small">Modalità avanzata (tipo per singola basetta)</span>
+        </label>
+        <div id="advArea" style="display:none;margin-top:8px" class="row"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="label">Combinazione ufficiale</div>
+      <div id="combo" class="badge">—</div>
+      <div class="small" id="bcount" style="margin-top:6px"></div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div class="info"><div class="small">Shot (PG)</div><div id="shotMl" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">Totale finale</div><div id="totalMl" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">Nic totale richiesta</div><div id="nicReq" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">Nic effettiva</div><div id="nicEff" style="font-weight:600">—</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="info"><div class="small">VG da basette</div><div id="vgB" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">PG da basette</div><div id="pgB" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">PG dallo shot</div><div id="pgS" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">Target VG</div><div id="targetVG" style="font-weight:600">—</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="info"><div class="small">VG da aggiungere</div><div id="vgAdd" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">PG da aggiungere</div><div id="pgAdd" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">VG finale</div><div id="vgF" style="font-weight:600">—</div></div>
+        <div class="info"><div class="small">PG finale</div><div id="pgF" style="font-weight:600">—</div></div>
+      </div>
+      <div class="small" id="ratio" style="margin-top:8px">—</div>
+    </div>
+
+    <footer>© Nic Calculator AM • Funziona offline • Aggiungi alla schermata Home</footer>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js'));
+    }
+  </script>
+</body>
+</html>
