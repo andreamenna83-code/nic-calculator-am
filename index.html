@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Nic Calculator AM</title>
-  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="manifest" href="/nic-calculator-am/manifest.webmanifest">
   <link rel="icon" href="icons/icon-192.png">
   <meta name="theme-color" content="#364F6B">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -90,8 +90,10 @@
   <script src="app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js'));
-    }
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/nic-calculator-am/service-worker.js');
+  });
+}
   </script>
 </body>
 </html>
