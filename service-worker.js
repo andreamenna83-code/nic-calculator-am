@@ -1,7 +1,9 @@
-const CACHE = 'nic-am-v62';
+
+const CACHE = 'nic-am-v63';
 const ASSETS = [
   '/nic-calculator-am/',
   '/nic-calculator-am/index.html',
+  '/nic-calculator-am/app.js',
   '/nic-calculator-am/styles.css',
   '/nic-calculator-am/manifest.webmanifest',
   '/nic-calculator-am/icons/icon-192.png',
@@ -9,7 +11,6 @@ const ASSETS = [
   '/nic-calculator-am/icons/icon-384.png',
   '/nic-calculator-am/icons/icon-512.png'
 ];
-
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
   self.skipWaiting();
